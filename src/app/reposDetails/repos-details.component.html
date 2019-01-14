@@ -1,0 +1,62 @@
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <clr-icon shape="vm-bug"></clr-icon>
+      <span class="title">VMware</span>
+    </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-icon" clrDropdownTrigger>
+          User
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a href="..." clrDropdownItem>About</a>
+          <a href="..." clrDropdownItem>Preferences</a>
+          <a href="..." clrDropdownItem>Log out</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+  <div class="content-area">
+    <div>
+      <b>VMWARE/{{name}}</b>   commits <button (click)="backToPinedRepos()" class="btn btn-outline">BACK TO PINED REPOS</button>
+    </div>
+
+    <ul id="demoTabs" class="nav" role="tablist">
+      <li role="presentation" class="nav-item">
+        <button (click)="onTabSelected($event)" id="info" [className]="selectedTab === 'info' ? 'btn btn-link nav-link active' : 'btn btn-link nav-link'" aria-controls="panel1"
+                aria-selected="true" type="button">General info</button>
+      </li>
+      <li role="presentation" class="nav-item">
+        <button (click)="onTabSelected($event)" id="commits" [className]="selectedTab === 'commits' ? 'btn btn-link nav-link active' : 'btn btn-link nav-link'" aria-controls="panel2"
+                aria-selected="false" type="button">Commits</button>
+      </li>
+    </ul>
+    <section *ngIf="selectedTab === 'info'" id="panel1" role="tabpanel" aria-labelledby="tab1">
+       <div>{{description}}</div>
+    </section>
+    <section *ngIf="selectedTab === 'commits'" id="panel2" role="tabpanel" aria-labelledby="tab2">
+        <clr-datagrid>
+          <clr-dg-column>Comment</clr-dg-column>
+          <clr-dg-column>Date</clr-dg-column>
+          <clr-dg-column>Contributor</clr-dg-column>
+          <clr-dg-column>Download path</clr-dg-column>
+
+          <clr-dg-row *ngFor="let detail of details" [clrDgItem]="detail">
+            <clr-dg-cell>{{detail.commit.message}}</clr-dg-cell>
+            <clr-dg-cell>{{detail.commit.author.date | date: 'short'}}</clr-dg-cell>
+            <clr-dg-cell>{{detail.commit.author.name}}</clr-dg-cell>
+            <clr-dg-cell><button (click)="downloadPatch(detail.sha)" class="btn btn-primary">Download</button></clr-dg-cell>
+          </clr-dg-row>
+
+          <clr-dg-footer>
+            <!--TBD Pagination-->
+            <clr-dg-pagination #pagination [clrDgPageSize]="5">
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} commits
+            </clr-dg-pagination>
+          </clr-dg-footer>
+        </clr-datagrid>
+    </section>
+  </div>
+</div>

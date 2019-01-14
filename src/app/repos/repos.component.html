@@ -1,0 +1,42 @@
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <clr-icon shape="vm-bug"></clr-icon>
+      <span class="title">VMware</span>
+    </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-icon" clrDropdownTrigger>
+          User
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a href="..." clrDropdownItem>About</a>
+          <a href="..." clrDropdownItem>Preferences</a>
+          <a href="..." clrDropdownItem>Log out</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+  <div class="content-container">
+    <clr-datagrid class="git-hub-datagrid">
+      <clr-dg-column>Name</clr-dg-column>
+      <clr-dg-column>License</clr-dg-column>
+      <clr-dg-column>Commits</clr-dg-column>
+      <clr-dg-column>Contributors</clr-dg-column>
+      <clr-dg-column>Releases</clr-dg-column>
+      <clr-dg-column>Branches</clr-dg-column>
+
+      <clr-dg-row *ngFor="let repo of repos">
+        <clr-dg-cell><a [routerLink]="['/repos', repo.name]">{{repo.name}}</a></clr-dg-cell>
+        <clr-dg-cell>{{repo.license}}</clr-dg-cell>
+        <clr-dg-cell>{{repo.commits}}</clr-dg-cell>
+        <clr-dg-cell>{{repo.contributors}}</clr-dg-cell>
+        <clr-dg-cell>{{repo.releases}}</clr-dg-cell>
+        <clr-dg-cell>{{repo.branches}}</clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-footer> pinned repos</clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>
